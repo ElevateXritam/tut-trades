@@ -1,62 +1,84 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TheUncommonTrades</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3767/3767084.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TheUncommonTrades Pro</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    body.dark-mode {
-      background-color: #0f172a;
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f172a, #1e293b);
       color: #e2e8f0;
     }
-    .card {
-      background-color: #ffffff;
-      border-radius: 0.75rem;
-      padding: 1.5rem;
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 0 25px rgba(255,255,255,0.05);
     }
-    body.dark-mode .card {
-      background-color: #1e293b;
-      box-shadow: 0 10px 15px rgba(255, 255, 255, 0.05);
+    .ai-chat {
+      border-radius: 0.5rem;
+      background: #1e3a8a;
+      padding: 1rem;
+      font-size: 14px;
     }
-    .buy { color: #16a34a; font-weight: bold; }
-    .sell { color: #dc2626; font-weight: bold; }
+    .stock-ticker {
+      display: flex;
+      overflow-x: auto;
+      gap: 1rem;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    .ticker-item {
+      padding: 0.5rem 1rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+    }
   </style>
 </head>
-<body class="font-sans p-4">
-  <div class="max-w-6xl mx-auto space-y-6">
-    <div class="flex justify-between items-center">
-      <h1 class="text-3xl font-bold text-blue-600 dark:text-blue-300">📊 TheUncommonTrades (TUT)</h1>
-      <div class="space-x-2">
-        <select id="symbol" class="p-2 rounded bg-gray-200 dark:bg-gray-700 dark:text-white">
-          <option value="AAPL">Apple (AAPL)</option>
-          <option value="GOOGL">Google (GOOGL)</option>
-          <option value="MSFT">Microsoft (MSFT)</option>
-          <option value="TSLA">Tesla (TSLA)</option>
-        </select>
-        <button onclick="toggleDarkMode()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Toggle Theme</button>
-      </div>
-    </div><div class="card">
-  <h2 class="text-xl font-semibold mb-2">Live Price Chart</h2>
-  <canvas id="stockChart" height="320"></canvas>
+<body class="p-6">
+  <div class="max-w-7xl mx-auto space-y-6">
+    <h1 class="text-4xl font-bold text-center text-blue-400 animate-pulse">🚀 TheUncommonTrades Pro (TUT)</h1><div class="stock-ticker">
+  <div class="ticker-item">AAPL</div>
+  <div class="ticker-item">GOOGL</div>
+  <div class="ticker-item">MSFT</div>
+  <div class="ticker-item">TSLA</div>
+  <div class="ticker-item">AMZN</div>
+  <div class="ticker-item">NFLX</div>
+  <div class="ticker-item">META</div>
+  <div class="ticker-item">NVDA</div>
 </div>
 
-<div class="card grid grid-cols-1 sm:grid-cols-3 gap-4 text-lg">
-  <div><strong>Stock:</strong> <span id="stockName">AAPL</span></div>
-  <div><strong>Current Price:</strong> <span id="currentPrice">Loading...</span></div>
-  <div><strong>Prediction:</strong> <span id="prediction">Calculating...</span></div>
+<div class="glass">
+  <label for="symbol">Choose Stock:</label>
+  <select id="symbol" class="text-black p-2 rounded">
+    <option value="AAPL">Apple (AAPL)</option>
+    <option value="GOOGL">Google (GOOGL)</option>
+    <option value="MSFT">Microsoft (MSFT)</option>
+    <option value="TSLA">Tesla (TSLA)</option>
+    <option value="AMZN">Amazon (AMZN)</option>
+    <option value="META">Meta (META)</option>
+    <option value="NFLX">Netflix (NFLX)</option>
+    <option value="NVDA">NVIDIA (NVDA)</option>
+  </select>
+  <button onclick="toggleDarkMode()" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded">Toggle Theme</button>
 </div>
 
-<div class="card">
-  <h3 class="text-lg font-semibold">📌 Stock Analysis Tips</h3>
-  <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300">
-    <li>Look at moving averages to determine trends.</li>
-    <li>Price spikes can indicate volume surges.</li>
-    <li>Use historical patterns to evaluate support/resistance.</li>
-    <li>Always diversify your portfolio.</li>
-  </ul>
+<div class="glass">
+  <canvas id="stockChart" height="300"></canvas>
+</div>
+
+<div class="glass">
+  <p><strong>Stock:</strong> <span id="stockName">AAPL</span></p>
+  <p><strong>Current Price:</strong> <span id="currentPrice">Loading...</span></p>
+  <p><strong>AI Prediction:</strong> <span id="prediction">Analyzing...</span></p>
+</div>
+
+<div class="glass ai-chat">
+  <h2 class="text-lg font-semibold text-white">🤖 TUTPro AI Chat</h2>
+  <p id="tutAdvice">TUTPro AI will provide insights after analyzing trends...</p>
 </div>
 
   </div>  <script>
@@ -68,15 +90,20 @@
       const url = `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=1min&outputsize=10&apikey=${API_KEY}`;
       const response = await fetch(url);
       const data = await response.json();
+      const values = data.values || [];
+      if (!values.length) return;
 
-      const labels = data.values.map(point => point.datetime).reverse();
-      const prices = data.values.map(point => parseFloat(point.close)).reverse();
+      const labels = values.map(p => p.datetime).reverse();
+      const prices = values.map(p => parseFloat(p.close)).reverse();
       const current = prices[prices.length - 1];
       const previous = prices[prices.length - 2];
 
       document.getElementById("currentPrice").textContent = `₹${current}`;
-      document.getElementById("prediction").innerHTML = current > previous ?
-        '<span class="buy">Buy 🔼</span>' : '<span class="sell">Sell 🔽</span>';
+      const predictionText = current > previous ? "Strong Buy Signal" : "Possible Downtrend";
+      document.getElementById("prediction").textContent = predictionText;
+      document.getElementById("tutAdvice").textContent = current > previous ?
+        `Based on momentum and trend, ${symbol} looks bullish. Ideal time to consider entry.` :
+        `Caution advised for ${symbol}. Downtrend detected, monitor support levels.`;
 
       if (chart) chart.destroy();
       chart = new Chart(document.getElementById("stockChart"), {
@@ -84,16 +111,15 @@
         data: {
           labels: labels,
           datasets: [{
-            label: "Price ₹",
+            label: `Price ₹ (${symbol})`,
             data: prices,
-            borderColor: "#38bdf8",
-            backgroundColor: "rgba(56, 189, 248, 0.2)",
+            borderColor: current > previous ? "#16a34a" : "#dc2626",
+            backgroundColor: "rgba(255,255,255,0.1)",
             fill: true,
             tension: 0.4
           }]
         },
         options: {
-          responsive: true,
           plugins: {
             legend: { display: false },
             tooltip: { mode: 'index', intersect: false }
@@ -106,13 +132,11 @@
       });
     }
 
+    const symbolSelector = document.getElementById("symbol");
+    symbolSelector.addEventListener("change", () => fetchStockData(symbolSelector.value));
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
     }
-
-    const symbolSelector = document.getElementById("symbol");
-    symbolSelector.addEventListener("change", () => fetchStockData(symbolSelector.value));
-
     fetchStockData(symbolSelector.value);
     setInterval(() => fetchStockData(symbolSelector.value), 60000);
   </script></body>
